@@ -1,0 +1,101 @@
+/* Estilos Globales (Adaptados de los nombres de clase del código original) */
+
+:root {
+    --primary-color: #007bff; /* Color principal (azul, por ejemplo) */
+    --secondary-color: #6c757d; /* Color secundario */
+    --text-white: #ffffff;
+    --bg-blue: #0056b3;
+    --fucsia: #ff00ff; /* Usado para resaltar */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Cabecera y Navegación --- */
+#header {
+    background-color: var(--primary-color);
+    padding: 10px 0;
+}
+
+#logo img {
+    max-height: 50px;
+}
+
+.header_links {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.header_button {
+    background: none;
+    border: none;
+    color: var(--text-white);
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    border-bottom: 3px solid transparent;
+}
+
+.header_button.active {
+    border-bottom: 3px solid var(--fucsia);
+}
+
+/* --- Contenedor de Login/Registro --- */
+.login_container {
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+#register_button, #login_btn {
+    padding: 8px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#register_button {
+    background-color: var(--fucsia);
+    color: var(--text-white);
+}
+
+#login_btn {
+    background-color: transparent;
+    border: 2px solid var(--text-white);
+    color: var(--text-white);
+}
+
+/* --- PopUp de Login (estilos básicos) --- */
+#logInPopUp {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--text-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000;
+}
+
+#popUpCloseButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* ... Agrega más estilos según necesites ... */
