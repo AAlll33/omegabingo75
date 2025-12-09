@@ -8,13 +8,161 @@
     <meta http-equiv="content-language" content="es"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/" rel="canonical">
-    <link href="css/styles.css" rel="stylesheet" type="text/css"/>
-    <link href="css/homepage.css" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/images/favicon.ico">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/main.js" type="text/javascript"></script>
+    <style>
+        /* Estilos Globales (Adaptados de los nombres de clase del código original) */
+
+        :root {
+            --primary-color: #007bff; /* Color principal (azul, por ejemplo) */
+            --secondary-color: #6c757d; /* Color secundario */
+            --text-white: #ffffff;
+            --bg-blue: #0056b3;
+            --fucsia: #ff00ff; /* Usado para resaltar */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .wrapper {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Cabecera y Navegación --- */
+        #header {
+            background-color: var(--primary-color);
+            padding: 10px 0;
+        }
+
+        #logo img {
+            max-height: 50px;
+        }
+
+        .header_links {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .header_button {
+            background: none;
+            border: none;
+            color: var(--text-white);
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            border-bottom: 3px solid transparent;
+        }
+
+        .header_button.active {
+            border-bottom: 3px solid var(--fucsia);
+        }
+
+        /* --- Contenedor de Login/Registro --- */
+        .login_container {
+            float: right;
+            display: flex;
+            align-items: center;
+        }
+
+        #register_button, #login_btn {
+            padding: 8px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #register_button {
+            background-color: var(--fucsia);
+            color: var(--text-white);
+        }
+
+        #login_btn {
+            background-color: transparent;
+            border: 2px solid var(--text-white);
+            color: var(--text-white);
+        }
+
+        /* --- PopUp de Login (estilos básicos) --- */
+        #logInPopUp {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--text-white);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1000;
+            min-width: 300px; /* Estilo añadido para visibilidad */
+            text-align: center; /* Estilo añadido para visibilidad */
+        }
+
+        #popUpCloseButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* Estilos básicos para la sección dinámica */
+        .bg-blue {
+            background-color: var(--bg-blue);
+            color: var(--text-white);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .login-box {
+            margin-bottom: 10px;
+        }
+        .login_input {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .primary-button {
+            background-color: var(--primary-color);
+            color: var(--text-white);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Estilos para el listado de proyectos */
+        #updates-list {
+            list-style: none;
+            padding: 0;
+        }
+        #updates-list li {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+        #updates-list img {
+            max-width: 50px;
+            height: auto;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -67,15 +215,14 @@
     <div class="wrapper home_main_content">
         <div id="content">
             <div class="home_main_banner">
-                <img src="images/mi_banner_principal.jpg" alt="Mi Banner" style="width: 100%;">
+                <img src="/images/mi_banner_principal.jpg" alt="Mi Banner" style="width: 100%;">
             </div>
 
             <div class="homepage_width">
                 <div id="mi_contenido_dinamico" class="bg-blue">
                     <h2>Últimas Actualizaciones</h2>
                     <ul id="updates-list">
-                        <li>Publicación 1 (cargada con Firebase)</li>
-                        <li>Publicación 2 (cargada con Firebase)</li>
+                        <li>Cargando publicaciones desde Firestore...</li>
                     </ul>
                 </div>
             </div>
@@ -83,7 +230,90 @@
     </div>
 
     <div id="footer">
-        </div>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+    <script type="text/javascript">
+        // --- CONFIGURACIÓN DE FIREBASE (firebase_config.js) ---
+        // *** 🛑 IMPORTANTE: REEMPLAZA ESTO CON TUS CLAVES REALES DE FIREBASE 🛑 ***
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY", // Reemplazar
+            authDomain: "TU_PROJECT_ID.firebaseapp.com", // Reemplazar
+            projectId: "TU_PROJECT_ID", // Reemplazar
+            storageBucket: "TU_PROJECT_ID.appspot.com", // Reemplazar
+            messagingSenderId: "TU_SENDER_ID", // Reemplazar
+            appId: "TU_APP_ID" // Reemplazar
+        };
+
+        // Inicializa Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Exporta los servicios que usarás
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // --- LÓGICA DE CARGA DE PROYECTOS (content_loader.js) ---
+        function loadProjects() {
+            // Se asume que tienes una colección llamada "proyectos" en Firestore
+            db.collection("proyectos").get().then((querySnapshot) => {
+                const updatesList = document.getElementById('updates-list');
+                updatesList.innerHTML = ''; // Limpiar la lista
+
+                if (querySnapshot.empty) {
+                    updatesList.innerHTML = '<li>No hay proyectos para mostrar en Firestore.</li>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const listItem = document.createElement('li');
+
+                    // Muestra el título, el enlace y la imagen (Cloudinary URL)
+                    listItem.innerHTML = `<a href="${data.link || '#'}"><img src="${data.imageUrl || 'images/default.png'}" alt="${data.title || 'Sin Título'}"> ${data.title || 'Proyecto sin nombre'}</a>`;
+                    
+                    updatesList.appendChild(listItem);
+                });
+            }).catch((error) => {
+                const updatesList = document.getElementById('updates-list');
+                updatesList.innerHTML = '<li>Error al cargar contenido. Revisa tu consola para más detalles.</li>';
+                console.error("Error al cargar proyectos: ", error);
+            });
+        }
+
+        // --- LÓGICA PRINCIPAL (main.js) ---
+
+        // Función para abrir el pop-up de inicio de sesión
+        function openLoginPopUp() {
+            $('#logInPopUp').fadeIn(200);
+        }
+
+        // Función para cerrar el pop-up de inicio de sesión
+        function closeLoginPopUp() {
+            $('#logInPopUp').fadeOut(200);
+        }
+
+        // Lógica que se ejecuta cuando el documento está listo
+        $(document).ready(function() {
+            // Cargar los proyectos de Firestore
+            loadProjects();
+
+            // Lógica para cerrar el pop-up al hacer clic en el botón de cerrar (X)
+            $('#popUpCloseButton').on('click', function() {
+                closeLoginPopUp();
+            });
+
+            // Manejar el envío del formulario de login
+            $('#login_form_submit').on('submit', function(e) {
+                e.preventDefault();
+                alert('Formulario de login interceptado. Implementa aquí la lógica de autenticación con Firebase.');
+                // Ejemplo: Llama aquí a 'auth.signInWithEmailAndPassword(usuario, contraseña)'
+            });
+        });
+    </script>
 </body>
 </html>
