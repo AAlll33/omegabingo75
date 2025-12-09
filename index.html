@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Mi Nuevo Sitio Web | Título Personalizado</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="Mi descripción personal. ¡Bienvenido a mi sitio!"/>
+    <meta name="keywords" content="Mi, Sitio, Web, Personal"/>
+    <meta http-equiv="content-language" content="es"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/" rel="canonical">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/homepage.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <div id="header" class="homepage">
+        <div class="wrapper">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.svg" alt="Mi Sitio" width="100%"/>
+                </a>
+            </div>
+
+            <div class="login_container not_logged_in">
+                <div id="login_form">
+                    <a href="/registration" id="register_button">REGISTRARSE</a>
+                    <input type="button" value="ENTRAR" id="login_btn" onclick="openLoginPopUp();"/>
+                    <a href="/ayuda"><img src="/images/help_icon.png" style="height: 20px; width: 20px;"/></a>
+                </div>
+                <div id="logInPopUp" style="display: none">
+                    <div id="popUpCloseButton" class="login-close">X</div>
+                    <div class="wrap">
+                        <div id="main_login_form">
+                            <h1 id="login_title">Bienvenido a Mi Sitio</h1>
+                            <form name="login" method="post" action="#" id="login_form_submit">
+                                <div id="user_box" class="login-box">
+                                    <input type="text" name="login[val]" placeholder="Usuario" class="login_input"/>
+                                </div>
+                                <div id="password_box" class="login-box">
+                                    <input type="password" name="login[password]" placeholder="Contraseña" class="login_input"/>
+                                </div>
+                                <button id="login-submit" type="submit" class="btn primary-button">ENTRAR</button>
+                                <div id="bottom_login_box" class="register_container">
+                                    <h3>&iquest;No tienes cuenta?<br><a class="btn" href="/registration" onclick="closeLoginPopUp()">REGÍSTRATE</a></h3>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header_links not_logged_in homepage">
+                <button onclick="document.location.href='/'" id="mainbtn_inicio" class="header_button active">INICIO</button>
+                <button onclick="document.location.href='/mis-proyectos'" id="mainbtn_juegos" class="header_button">MIS PROYECTOS</button>
+                <button onclick="document.location.href='/mis-logros'" id="mainbtn_ganadores" class="header_button">MIS LOGROS</button>
+                <button onclick="document.location.href='/contacto'" id="mainbtn_promociones" class="header_button">CONTACTO</button>
+                <button onclick="window.open('https://mi-blog.com/')" target="_blank" id="mainbtn_blog" class="header_button">BLOG</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper home_main_content">
+        <div id="content">
+            <div class="home_main_banner">
+                <img src="/images/mi_banner_principal.jpg" alt="Mi Banner" style="width: 100%;">
+            </div>
+
+            <div class="homepage_width">
+                <div id="mi_contenido_dinamico" class="bg-blue">
+                    <h2>Últimas Actualizaciones</h2>
+                    <ul id="updates-list">
+                        <li>Publicación 1 (cargada con Firebase)</li>
+                        <li>Publicación 2 (cargada con Firebase)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        </div>
+
+</body>
+</html>
